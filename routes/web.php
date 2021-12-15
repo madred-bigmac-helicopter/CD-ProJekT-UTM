@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +13,19 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+require __DIR__ . '/auth.php';
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
+    Route::get('/admin', function () {
+        return view('admin.adminpanel');
+    });
+});
+Route::group(
+    [
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => ['localeSessionRedirect', 'localizationRedirect']
+    ], function () {
+    Route::get('/', function () {
+        return view('layouts.app');
+    });
 });

@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -35,10 +36,16 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        Password::defaults(function (){
+            return Password::min(8)
+                ->mixedCase()
+                ->numbers()
+                ->uncompromised();
+        });
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|required_with:repeat-password|same:repeat-password|min:8|max:30',
+            'password' => ['required', Password::defaults(),'required_with:repeat-password|same:repeat-password'],
             'repeat-password' => 'required|string|min:8|max:30',
         ]);
 
@@ -50,6 +57,6 @@ class RegisteredUserController extends Controller
         $user->assignRole("guest");
         event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(route('admin'));
     }
 }

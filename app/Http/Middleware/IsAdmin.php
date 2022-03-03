@@ -22,7 +22,7 @@ class IsAdmin
             if (Auth::user() && Auth::user()->hasRole('admin'))
                 return $next($request);
             else
-                return redirect('/admin/places');
+                return redirect('/');
         } else {
             return redirect('/login');
         }

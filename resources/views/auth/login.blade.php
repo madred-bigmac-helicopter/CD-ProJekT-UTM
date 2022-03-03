@@ -13,13 +13,17 @@
             <label>Password</label>
         </div>
 
-        <button style="background: linear-gradient(#141e30, #243b55)" type="submit" >
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Submit
-        </button>
+        <div style="display: flex;justify-content: space-between">
+
+            <button style="background: linear-gradient(#141e30, #243b55)" type="submit">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Submit
+            </button>
+            <a style="margin-top:40px;padding:10px 20px;color: #03e9f4" href="{{route('register')}}">Register</a>
+        </div>
 
 {{--        <div class="block mt-4">--}}
 {{--            <label for="remember_me" class="inline-flex items-center">--}}

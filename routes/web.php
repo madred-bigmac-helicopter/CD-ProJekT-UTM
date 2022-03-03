@@ -16,9 +16,9 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 require __DIR__ . '/auth.php';
 
 Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
-    Route::get('/admin', function () {
-        return view('admin.adminpanel');
-    });
+    Route::get('/dashboard', function () {
+        return view('admin.layouts.dashboard');
+    })->name('admin');
 });
 Route::group(
     [

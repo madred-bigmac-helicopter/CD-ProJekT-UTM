@@ -16,7 +16,7 @@ blocks:
             - cat << EOF > Containerfile
         - name: Install podman
           commands:
-            - apt-get -y install podman
+            - sudo apt-get -y install podman
   - name: Container build&push
     task:
       jobs:

@@ -1,0 +1,28 @@
+version: v1.0
+name: Initial Pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+blocks:
+  - name: Set-up resources
+    task:
+      jobs:
+        - name: Clone repo
+          commands:
+            - checkout
+        - name: Create Containerfile
+          commands:
+            - cat << EOF > Containerfile
+        - name: Install podman
+          commands:
+            - apt-get -y install podman
+  - name: Container build&push
+    task:
+      jobs:
+        - name: Build
+          commands:
+            - 'podman build . -t aleksangrrr/cdprojectutm:latest'
+        - name: Push
+          commands:
+            - 'podman push aleksangrrr/cdprojectutm:latest'

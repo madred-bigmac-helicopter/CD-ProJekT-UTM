@@ -49,5 +49,6 @@ blocks:
     depependencies: ["Build"]
     task:
       jobs:
+      - name: Yessy
         commands:
           - 'podman push aleksangrrr/cdprojectutm:latest'

@@ -15,25 +15,35 @@ blocks:
             - pwd
 
   - name: Create Containerfile
-    commands:
-      - cat << EOF > Containerfile
+      task:
+        jobs:
+          commands:
+            - cat << EOF > Containerfile
   - name: Install podman
-    commands:
-      - sudo apt-get -y install podman
+      task:
+        jobs:
+          commands:
+            - sudo apt-get -y install podman
   - name: Check all
-    commands:
-      - ls -la
-      - pwd
-      - env
+      task:
+        jobs:
+        commands:
+          - ls -la
+          - pwd
+          - env
   # - name: Container build&push
   #   task:
   #     jobs:
   - name: Build
   - dependencies: ["Clone repo", "Create Containerfile", "Install podman"]
-    commands:
-      - 'cd /home/semaphore/CD-ProJekT-UTM'
-      - 'podman build . -t aleksangrrr/cdprojectutm:latest -f ./Containerfile'
+      task:
+        jobs:
+          commands:
+            - 'cd /home/semaphore/CD-ProJekT-UTM'
+            - 'podman build . -t aleksangrrr/cdprojectutm:latest -f ./Containerfile'
   - name: Push
     depependencies: ["Build"]
-    commands:
-      - 'podman push aleksangrrr/cdprojectutm:latest'
+      task:
+        jobs:
+          commands:
+            - 'podman push aleksangrrr/cdprojectutm:latest'

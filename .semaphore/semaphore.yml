@@ -8,28 +8,13 @@ blocks:
   - name: "Clone repo"
     task:
       jobs:
-      - name: Set up project
+      - name: Big one
         commands:
         - checkout
         - podman --version
         - python3 --version
         - ls -la
         - pwd
-
-  - name: "cd into repo"
-    task:
-      jobs:
-      - name: move into project
-        commands:
-        # - cd /home/ubuntu/CD-ProJekT-UTM
-        - ls -la
-        - pwd
-
-  - name: "Generate Dockerfile"
-    task:
-      jobs:
-      - name: generate Dockerfile
-        commands:
         - podman build -t CD-ProJekT-UTM .
         - ls -la
         - pwd

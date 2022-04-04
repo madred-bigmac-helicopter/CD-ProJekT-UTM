@@ -11,6 +11,8 @@ blocks:
         - name: Clone repo
           commands:
             - checkout
+            - ls -la
+            - pwd
         - name: Create Containerfile
           commands:
             - cat << EOF > Containerfile

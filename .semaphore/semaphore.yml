@@ -5,50 +5,31 @@ agent:
     type: e1-standard-2
     os_image: ubuntu2004
 blocks:
-  - name: Set-up resources
+  - name: "Clone repo"
     task:
       jobs:
-      - name: Clone repo
+      - name: Set up project
         commands:
-          - checkout
-          - ls -la
-          - pwd
+        - checkout
+        - podman --version
+        - python3 --version
+        - ls -la
+        - pwd
 
-  - name: Create Containerfile
+  - name: "cd into repo"
     task:
       jobs:
-      - name: Yessy
+      - name: move into project
         commands:
-          - cat << EOF > Containerfile
-  - name: Install podman
+        - cd /home/ubuntu/CD-ProJekT-UTM
+        - ls -la
+        - pwd
+
+  - name: "Generate Dockerfile"
     task:
       jobs:
-      - name: Yessy
+      - name: generate Dockerfile
         commands:
-          - sudo apt-get -y install podman
-  - name: Check all
-    task:
-      jobs:
-      - name: Yessy
-        commands:
-          - ls -la
-          - pwd
-          - env
-  # - name: Container build&push
-  #   task:
-  #     jobs:
-  - name: Build
-    dependencies: ["Clone repo", "Create Containerfile", "Install podman"]
-    task:
-      jobs:
-      - name: Yessy
-        commands:
-          - 'cd /home/semaphore/CD-ProJekT-UTM'
-          - 'podman build . -t aleksangrrr/cdprojectutm:latest -f ./Containerfile'
-  - name: Push
-    depependencies: ["Build"]
-    task:
-      jobs:
-      - name: Yessy
-        commands:
-          - 'podman push aleksangrrr/cdprojectutm:latest'
+        - podman build -t CD-ProJekT-UTM .
+        - ls -la
+        - pwd

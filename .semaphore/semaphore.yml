@@ -35,7 +35,7 @@ blocks:
   #   task:
   #     jobs:
   - name: Build
-  - dependencies: ["Clone repo", "Create Containerfile", "Install podman"]
+    dependencies: ["Clone repo", "Create Containerfile", "Install podman"]
       task:
         jobs:
           commands:

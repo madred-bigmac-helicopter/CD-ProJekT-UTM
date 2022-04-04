@@ -21,7 +21,7 @@ blocks:
       jobs:
       - name: move into project
         commands:
-        - cd /home/ubuntu/CD-ProJekT-UTM
+        # - cd /home/ubuntu/CD-ProJekT-UTM
         - ls -la
         - pwd
 

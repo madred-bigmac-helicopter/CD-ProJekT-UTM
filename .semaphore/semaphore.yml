@@ -15,6 +15,6 @@ blocks:
         - python3 --version
         - ls -la
         - pwd
-        - podman build -t CD-ProJekT-UTM .
+        - podman build . -t aleksangrrr/cdprojectutm:latest -f ./Containerfile
         - ls -la
         - pwd

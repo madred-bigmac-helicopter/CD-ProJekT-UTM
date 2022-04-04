@@ -29,6 +29,7 @@ blocks:
       jobs:
         - name: Build
           commands:
+            - 'cd /home/semaphore/$(SEMAPHORE_GIT_DIR)'
             - 'podman build . -t aleksangrrr/cdprojectutm:latest -f ./Containerfile'
         - name: Push
           commands:

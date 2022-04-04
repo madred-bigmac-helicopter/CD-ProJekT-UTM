@@ -1,10 +1,10 @@
-FROM composer:2.2.6 as build
+FROM composer:latest as build
 
 COPY . /app
 RUN composer install
 
 
-FROM php:8.1.3-apache
+FROM php:8.1.4-apache
 
 RUN apt-get update
 

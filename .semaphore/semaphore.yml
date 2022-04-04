@@ -22,7 +22,7 @@ blocks:
       jobs:
         - name: Build
           commands:
-            - 'podman build . -t aleksangrrr/cdprojectutm:latest'
+            - 'podman build . -t aleksangrrr/cdprojectutm:latest -f ./Containerfile'
         - name: Push
           commands:
             - 'podman push aleksangrrr/cdprojectutm:latest'

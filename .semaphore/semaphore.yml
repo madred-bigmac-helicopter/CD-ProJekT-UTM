@@ -13,26 +13,27 @@ blocks:
             - checkout
             - ls -la
             - pwd
-        - name: Create Containerfile
-          commands:
-            - cat << EOF > Containerfile
-        - name: Install podman
-          commands:
-            - sudo apt-get -y install podman
-        - name: Check all
-          commands:
-            - ls -la
-            - pwd
-            - env
+
+  - name: Create Containerfile
+    commands:
+      - cat << EOF > Containerfile
+  - name: Install podman
+    commands:
+      - sudo apt-get -y install podman
+  - name: Check all
+    commands:
+      - ls -la
+      - pwd
+      - env
   # - name: Container build&push
   #   task:
   #     jobs:
-        - name: Build
-        - dependencies: ["Clone repo", "Create Containerfile", "Install podman"]
-          commands:
-            - 'cd /home/semaphore/$(SEMAPHORE_GIT_DIR)'
-            - 'podman build . -t aleksangrrr/cdprojectutm:latest -f ./Containerfile'
-        - name: Push
-          depependencies: ["Build"]
-          commands:
-            - 'podman push aleksangrrr/cdprojectutm:latest'
+  - name: Build
+  - dependencies: ["Clone repo", "Create Containerfile", "Install podman"]
+    commands:
+      - 'cd /home/semaphore/CD-ProJekT-UTM'
+      - 'podman build . -t aleksangrrr/cdprojectutm:latest -f ./Containerfile'
+  - name: Push
+    depependencies: ["Build"]
+    commands:
+      - 'podman push aleksangrrr/cdprojectutm:latest'

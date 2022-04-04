@@ -24,13 +24,15 @@ blocks:
             - ls -la
             - pwd
             - env
-  - name: Container build&push
-    task:
-      jobs:
+  # - name: Container build&push
+  #   task:
+  #     jobs:
         - name: Build
+        - dependencies: ["Clone repo", "Create Containerfile", "Install podman"]
           commands:
             - 'cd /home/semaphore/$(SEMAPHORE_GIT_DIR)'
             - 'podman build . -t aleksangrrr/cdprojectutm:latest -f ./Containerfile'
         - name: Push
+          depependencies: ["Build"]
           commands:
             - 'podman push aleksangrrr/cdprojectutm:latest'

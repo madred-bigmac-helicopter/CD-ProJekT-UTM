@@ -17,6 +17,11 @@ blocks:
         - name: Install podman
           commands:
             - sudo apt-get -y install podman
+        - name: Check all
+          commands:
+            - ls -la
+            - pwd
+            - env
   - name: Container build&push
     task:
       jobs:

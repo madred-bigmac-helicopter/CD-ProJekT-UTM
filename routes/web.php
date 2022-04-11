@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -40,6 +41,15 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::post('/roles/update', [RoleController::class, 'update'])->name('roles.update');
     Route::post('/roles/delete/{id}', [RoleController::class, 'destroy'])->name('roles.delete');
 
+    Route::post('/tasks', [TaskController::class, 'index']);
+    Route::get('/task', function (){
+        return view('admin.tasks.index');
+    })->name('task.index');
+    Route::get('/task/create', [TaskController::class, 'create'])->name('task.create');
+    Route::post('/task/store', [TaskController::class, 'store'])->name('task.store');
+    Route::get('/task/edit/{id}', [TaskController::class, 'edit'])->name('task.edit');
+    Route::post('/task/update/{id}', [TaskController::class, 'update'])->name('task.update');
+    Route::get('/task/delete/{id}', [TaskController::class, 'destroy'])->name('task.delete');
 });
 
 Route::group(

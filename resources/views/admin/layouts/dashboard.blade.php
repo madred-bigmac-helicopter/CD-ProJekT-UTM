@@ -12,19 +12,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
     <!--end::Fonts-->
     <!--begin::Page Vendors Styles(used by this page)-->
-{{--    <link href="public/assets/plugins/custom/fullcalendar/fullcalendar.bundleafa4.css?v=7.2.0" rel="stylesheet"--}}
-{{--          type="text/css"/>--}}
-    <!--end::Page Vendors Styles-->
-    <!--begin::Global Theme Styles(used by all pages)-->
-{{--    <link href="public/assets/plugins/global/plugins.bundleafa4.css?v=7.2.0" rel="stylesheet" type="text/css"/>--}}
-{{--    <link href="public/assets/plugins/custom/prismjs/prismjs.bundleafa4.css?v=7.2.0" rel="stylesheet" type="text/css"/>--}}
-{{--    <link href="public/assets/css/style.bundleafa4.css?v=7.2.0" rel="stylesheet" type="text/css"/>--}}
-    <!--end::Global Theme Styles-->
-    <!--begin::Layout Themes(used by all pages)-->
-{{--    <link href="public/assets/css/themes/layout/header/base/lightafa4.css?v=7.2.0" rel="stylesheet" type="text/css"/>--}}
-{{--    <link href="public/assets/css/themes/layout/header/menu/lightafa4.css?v=7.2.0" rel="stylesheet" type="text/css"/>--}}
-{{--    <link href="public/assets/css/themes/layout/brand/darkafa4.css?v=7.2.0" rel="stylesheet" type="text/css"/>--}}
-{{--    <link href="public/assets/css/themes/layout/aside/darkafa4.css?v=7.2.0" rel="stylesheet" type="text/css"/>--}}
     <link href="{{asset('assets/css/themes/layout/aside/darkafa4.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('assets/css/themes/layout/brand/darkafa4.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('assets/css/themes/layout/header/menu/lightafa4.css')}}" rel="stylesheet" type="text/css"/>
@@ -113,6 +100,8 @@
 <!--begin::Page Scripts(used by this page)-->
 {{--<script src="public/assets/js/pages/widgetsafa4.js?v=7.2.0"></script>--}}
 <script src="{{asset('assets/js/pages/widgetsafa4.js')}}"></script>
+
+{{--<script src ="{{asset('assets/js/table.js')}}"></script>--}}
 </body>
 
 </html>

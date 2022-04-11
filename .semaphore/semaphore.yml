@@ -8,13 +8,38 @@ blocks:
   - name: "Clone repo"
     task:
       jobs:
-      - name: Big one
+      - name: checkout
         commands:
         - checkout
-        - podman --version
-        - python3 --version
-        - ls -la
-        - pwd
-        - podman build . -t aleksangrrr/cdprojectutm:latest -f ./Containerfile
-        - ls -la
-        - pwd
+        - python3 -c "import time; time.sleep(5)"
+      - name: install dependencies
+        commands:
+        - python3 -c "import time; time.sleep(16)"
+      - name: verify dependencies
+        commands:
+        - python3 -c "import time; time.sleep(4)"
+  - name: "Build"
+    task:
+      jobs:
+      - name: build
+        commands:
+        - python3 -c "import time; time.sleep(5)"
+      - name: check buiuld
+        commands:
+        - python3 -c "import time; time.sleep(4)"
+  - name: "Test"
+    task:
+      jobs:
+      - name: test
+        commands:
+        - python3 -c "import time; time.sleep(30)"
+      - name: check test coverage
+        commands:
+        - python3 -c "import time; time.sleep(8)"
+  - name: "Lint"
+    task:
+      jobs:
+      - name: lint
+        commands:
+        - python3 -c "import time; time.sleep(7)"
+

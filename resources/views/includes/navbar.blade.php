@@ -1,12 +1,12 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">WebSiteName</a>
+            <a class="navbar-brand" href="/">CD-ProJekT-UTM</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
+            <li><a href="/">About</a></li>
 
-            <li><a href="#">Page 2</a></li>
+            <li><a href="{{route('task-index')}}">Practice</a></li>
 
         </ul>
         <ul class="nav navbar-nav " style="float: right; margin-right: 50px">
@@ -27,7 +27,7 @@
 
                             @if(Auth::user()->hasAnyRole(['admin','editor']))
                                 <li>
-                                    <a class="dropdown-item" href="#" style="">Admin</a>
+                                    <a class="dropdown-item" href="{{route('task.index')}}" style="">Admin</a>
                                 </li>
                             @endif
                             <li>
@@ -56,7 +56,3 @@
     </div>
 </nav>
 
-<div class="container">
-    <h3>Navbar With Dropdown</h3>
-    <p>This example adds a dropdown menu for the "Page 1" button in the navigation bar.</p>
-</div>

@@ -17,6 +17,8 @@
     <script src="https://kit.fontawesome.com/628c8d2499.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -24,9 +26,10 @@
 
 <div class="container my-4">
     <div class="row">
-{{--        @yield('content')--}}
+        @yield('content')
     </div>
 </div>
+
 {{--@include('include.footer')--}}
 </body>
 

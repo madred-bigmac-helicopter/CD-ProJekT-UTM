@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="row">
-        {!! Form::open(['action' => ['App\Http\Controllers\Admin\UserController@update', 'id' => $user->id],
+        {!! Form::open(['action' => ['App\Http\Controllers\Admin\UserController@update', ],
         'class' => 'col-4']) !!}
         <div class="form-group">
             {{ Form::label('name', 'Name') }}

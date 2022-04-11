@@ -58,8 +58,10 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect']
     ], function () {
     Route::get('/', function () {
-        return view('layouts.app');
+        return view('about.about');
     });
+    Route::get('/practice',[\App\Http\Controllers\TaskController::class, 'index'])->name('task-index');
+    Route::post('/practice/group',[\App\Http\Controllers\TaskController::class, 'group'])->name('task-group');
 
 //    Route::post('/table',[UserController::class, 'index']);
 //    Route::get ( '/test1', function () {

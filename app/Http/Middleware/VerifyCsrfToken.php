@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         "/admin/users",
-        "/admin/tasks"
+        "/admin/tasks",
+        "/practice/groupe"
     ];
 }

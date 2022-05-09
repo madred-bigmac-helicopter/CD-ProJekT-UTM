@@ -17,11 +17,11 @@ class TaskController extends Controller
             foreach ($request['category'] as $item) {
                 $tasks [] = Task::where('category', $item)->get();
             };
-            foreach ($tasks as $item){
-                if (count($item)>0)
-                foreach ($item as $aux){
-                    $task [] = $aux;
-                }
+            foreach ($tasks as $item) {
+                if (count($item) > 0)
+                    foreach ($item as $aux) {
+                        $task [] = $aux;
+                    }
             }
         }
 
@@ -31,5 +31,27 @@ class TaskController extends Controller
     public function index()
     {
         return view('practice.index');
+    }
+
+    public function show()
+    {
+        return view("tasks.index");
+    }
+
+    public function modal($id)
+    {
+        $item = Task::find($id);
+
+        return $item;
+    }
+
+    public function submit($flag, $id)
+    {
+        $task = Task::find($id);
+        if ($task->flag == $flag) {
+            return "success";
+        } else {
+            return "fail";
+        }
     }
 }

@@ -1,58 +1,270 @@
-<div class="cardlist-container row">
-    @if($task == null)
-        <div class="flex-center"
-             style="border: 1px solid;  padding: 10px;  box-shadow: 5px 10px 18px #888888; margin: 15px 15px 15px 15px;display: flex;justify-content: center">
-            <p style="font-size: 50px">Sorry nothing to show</p>
+<style>
+    p {
+        color: black;
+        display: -webkit-box;
+        max-width: 200px;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    p:hover {
+        color: #0025ff;
+    }
+</style>
+<div style="display: flex; flex-direction: row">
+    <div>
+        <div class="card ">
+            <div class="card-header"><h3 class="card-title">Filters</h3></div>
+            {{--            <div class="card-body">--}}
+            {{--                <form class=""><label for="name-search" class="">Search by Name</label>--}}
+            {{--                    <div class="input-group"><input id="name-search" aria-label="Challenge name search" type="text"--}}
+            {{--                                                    class="form-control" value="">--}}
+            {{--                        <div class="input-group-append"><span class="input-group-text"><svg aria-hidden="true"--}}
+            {{--                                                                                            focusable="false"--}}
+            {{--                                                                                            data-prefix="fas"--}}
+            {{--                                                                                            data-icon="magnifying-glass"--}}
+            {{--                                                                                            class="svg-inline--fa fa-magnifying-glass "--}}
+            {{--                                                                                            role="img"--}}
+            {{--                                                                                            xmlns="http://www.w3.org/2000/svg"--}}
+            {{--                                                                                            viewBox="0 0 512 512"--}}
+            {{--                                                                                            color="black"><path--}}
+            {{--                                        fill="currentColor"--}}
+            {{--                                        d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"></path></svg></span>--}}
+            {{--                        </div>--}}
+            {{--                    </div>--}}
+            {{--                </form>--}}
+            {{--            </div>--}}
+            {{--            <div class="card-header"><h4 class="card-title">Category Filter</h4></div>--}}
+            <div class="card-body">
+                <ul class="filter-list list-group">
+
+
+                    <label><input class="pristine" type="checkbox" id="WebExploitation"
+                                  name="category[]" value="0"> <span>
+                        Web Exploitation
+                    </span></label><br>
+
+                    <label><input class="pristine" type="checkbox" id="WebExploitation"
+                                  name="category[]" value="1"> <span>
+                        Cryptography
+                    </span></label><br>
+
+                    <label><input class="pristine" type="checkbox" id="WebExploitation"
+                                  name="category[]" value="2"> <span>
+                       Reverse Engineering
+                    </span></label><br>
+
+                    <label><input class="pristine" type="checkbox" id="WebExploitation"
+                                  name="category[]" value="3"> <span>
+                                           Forensics
+
+                    </span></label><br>
+
+                    <label><input class="pristine" type="checkbox" id="WebExploitation"
+                                  name="category[]" value="4"> <span>
+                                            GeneralSkills
+
+                    </span></label><br>
+
+                    <label><input class="pristine" type="checkbox" id="WebExploitation"
+                                  name="category[]" value="5"> <span>
+                                           Binary Exploitation
+
+                    </span></label><br>
+
+                    <label><input class="pristine" type="checkbox" id="WebExploitation"
+                                  name="category[]" value="6"> <span>
+                                           Uncategorized
+
+                    </span></label><br>
+
+                    <button class="btn btn-primary" type="button" id="search-btn">Search</button>
+                </ul>
+            </div>
         </div>
-    @else
-        @foreach($task as $item)
-            {{--        @if(count($item)>0)--}}
-            <div class="col-lg-4 col-xl-2"
-                 style="border: 1px solid;  padding: 10px;  box-shadow: 5px 10px 18px #888888; margin: 15px 15px 15px 15px">
-                <div class="problem-list-card card">
-                    <div class="card-header">
-                        <div class="pull-right score body-md">
-                            | {{$item->points}}
+    </div>
+
+    <div class="container ">
+        @if($task == null)
+            <span style="font-size: 50px; width: 700px; margin-top: 150px"> Sorry, nothing to show</span>
+        @else
+            <div style="display: grid;
+        grid-template-columns: repeat(4, 1fr );
+        gap: 10px;
+  grid-auto-rows: 175px;">
+
+                @foreach($task as $item)
+                    {{--                @if(count($item)>0)--}}
+                    <a type="button" class="" style="color: transparent;" data-toggle="modal"
+                       data-target="#exampleModalCenter" onclick="modal({{$item->id}})">
+                        <div class="card">
+                            <div class="face face1">
+                                <div class="content" style="display: flex;flex-direction: column;align-items: center;">
+                                    <img
+                                        src="{{asset('png-transparent-encryption-cryptography-computer-icons-computer-network-key-computer-network-text-objects-removebg-preview.png')}}">
+                                    @if($item->category == 0)
+                                        <h3 class="body-md mt-1 card-title">Web Exploitation</h3>
+                                    @endif
+                                    @if($item->category == 1)
+                                        <h3 class="body-md mt-1 card-title">Cryptography</h3>
+                                    @endif
+                                    @if($item->category == 2)
+                                        <h3 class="body-md mt-1 card-title">Reverse Engineering</h3>
+                                    @endif
+                                    @if($item->category == 3)
+                                        <h3 class="body-md mt-1 card-title">Forensics</h3>
+                                    @endif
+                                    @if($item->category == 4)
+                                        <h3 class="body-md mt-1 card-title">General Skills</h3>
+                                    @endif
+                                    @if($item->category == 5)
+                                        <h3 class="body-md mt-1 card-title">Binary Exploitation</h3>
+                                    @endif
+                                    @if($item->category == 6)
+                                        <h3 class="body-md mt-1 card-title">Uncategorized</h3>
+                                    @endif
+
+                                </div>
+                            </div>
+
+
+                            <div class="face face2" style="tab-index: 1000">
+                                <div class="content">
+                                    <div
+                                        style="display: flex;flex-direction: row;justify-content: space-between; margin-bottom: 7px; width: 150px">
+                                        <p><b>{{$item->name}}</b></p>
+                                        <p>{{$item->points}}</p>
+                                    </div>
+
+                                    <p>{{$item->description}}</p>
+                                </div>
+
+                            </div>
+
                         </div>
-                        @if($item->category == 0)
-                            <h4 class="body-md mt-1 card-title">Web Exploitation</h4>
-                        @endif
-                        @if($item->category == 1)
-                            <h4 class="body-md mt-1 card-title">Cryptography</h4>
-                        @endif
-                        @if($item->category == 2)
-                            <h4 class="body-md mt-1 card-title">Reverse Engineering</h4>
-                        @endif
-                        @if($item->category == 3)
-                            <h4 class="body-md mt-1 card-title">Forensics</h4>
-                        @endif
-                        @if($item->category == 4)
-                            <h4 class="body-md mt-1 card-title">General Skills</h4>
-                        @endif
-                        @if($item->category == 5)
-                            <h4 class="body-md mt-1 card-title">Binary Exploitation</h4>
-                        @endif
-                        @if($item->category == 6)
-                            <h4 class="body-md mt-1 card-title">Uncategorized</h4>
-                        @endif
-                    </div>
-                    <div class="card-body"><h4>{{$item->name}}</h4></div>
-                    <div class="card-footer">
-                        <div class="row">
-                            {{--                            <div class="body-md col-md-6">88,047 solves</div>--}}
-                            <div class="text-right body-md col-md-6">
-                                {{--                                <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="thumbs-up"--}}
-                                {{--                                     class="svg-inline--fa fa-thumbs-up " role="img" xmlns="http://www.w3.org/2000/svg"--}}
-                                {{--                                     viewBox="0 0 512 512" color="black">--}}
-                                {{--                                    <path fill="currentColor"--}}
-                                {{--                                          d="M96 191.1H32c-17.67 0-32 14.33-32 31.1v223.1c0 17.67 14.33 31.1 32 31.1h64c17.67 0 32-14.33 32-31.1V223.1C128 206.3 113.7 191.1 96 191.1zM512 227c0-36.89-30.05-66.92-66.97-66.92h-99.86C354.7 135.1 360 113.5 360 100.8c0-33.8-26.2-68.78-70.06-68.78c-46.61 0-59.36 32.44-69.61 58.5c-31.66 80.5-60.33 66.39-60.33 93.47c0 12.84 10.36 23.99 24.02 23.99c5.256 0 10.55-1.721 14.97-5.26c76.76-61.37 57.97-122.7 90.95-122.7c16.08 0 22.06 12.75 22.06 20.79c0 7.404-7.594 39.55-25.55 71.59c-2.046 3.646-3.066 7.686-3.066 11.72c0 13.92 11.43 23.1 24 23.1h137.6C455.5 208.1 464 216.6 464 227c0 9.809-7.766 18.03-17.67 18.71c-12.66 .8593-22.36 11.4-22.36 23.94c0 15.47 11.39 15.95 11.39 28.91c0 25.37-35.03 12.34-35.03 42.15c0 11.22 6.392 13.03 6.392 22.25c0 22.66-29.77 13.76-29.77 40.64c0 4.515 1.11 5.961 1.11 9.456c0 10.45-8.516 18.95-18.97 18.95h-52.53c-25.62 0-51.02-8.466-71.5-23.81l-36.66-27.51c-4.315-3.245-9.37-4.811-14.38-4.811c-13.85 0-24.03 11.38-24.03 24.04c0 7.287 3.312 14.42 9.596 19.13l36.67 27.52C235 468.1 270.6 480 306.6 480h52.53c35.33 0 64.36-27.49 66.8-62.2c17.77-12.23 28.83-32.51 28.83-54.83c0-3.046-.2187-6.107-.6406-9.122c17.84-12.15 29.28-32.58 29.28-55.28c0-5.311-.6406-10.54-1.875-15.64C499.9 270.1 512 250.2 512 227z"></path>--}}
-                                {{--                                </svg>--}}
+                        {{--                @endif--}}
+                    </a>
+
+                @endforeach
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="false"
+                     style=" z-index:55555555 !important; color: #333">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content" style="background: #333333">
+                            <div class="modal-header" style="border: transparent">
+                                <h4 class="modal-title" id="exampleModalLongTitle"
+                                    style="color: white;font-family: Consolas; margin-top: 15px">
+                                </h4>
+                                <span style="color: red; font-size: 25px" hidden id="wrong-alert">Wrong Flag</span>
+                                <span style="color: green; font-size: 25px" hidden
+                                      id="correct-alert">Correct Flag</span>
+                            </div>
+                            <div class="modal-body"
+                                 style="color: white; font-family: Consolas;display:flex;flex-direction: column">
+                                <span id="modal-description"></span>
+                                <label
+                                    style="display: flex;flex-direction: column; align-items: start; margin-top: 20px">
+                                    <span>Flag</span>
+                                    <input style="margin-top: 7px; color: black" type="text" id="flag-input"/>
+                                </label>
+                            </div>
+                            <input hidden type="text" value="" id="task-id">
+                            <div class="modal-footer" style="border: black solid 1px">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="submit-flag" onclick="flagSubmit()">
+                                    Submit
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                @endif
             </div>
-            {{--        @endif--}}
-        @endforeach
-    @endif
+    </div>
 </div>
+
+<script>
+    function modal(id) {
+        let exampleModalLongTitle = $("#exampleModalLongTitle");
+        let modal_description = $("#modal-description");
+        let task_id = $("#task-id");
+        $.ajax({
+            type: "post",
+            url: "/practice/modal/" + id,
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                exampleModalLongTitle.empty();
+                modal_description.empty();
+                task_id.empty();
+                exampleModalLongTitle.append(res["name"])
+                modal_description.append(res["description"])
+                task_id.val(res["id"]);
+            }
+        });
+    }
+</script>
+
+<script>
+    $("#search-btn").on('click', function () {
+        var category = $.map($('input[name="category[]"]:checked'), function (c) {
+            return c.value;
+        })
+        if (category.length === 0) {
+            category = "all";
+        }
+        var data = JSON.stringify({
+            category,
+        })
+        $.ajax({
+            type: "post",
+            url: "/practice/group",
+            data: data,
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                let cards = $('#cards')
+                cards.empty();
+                cards.append(res);
+            }
+        });
+    })
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        this.forms[0].addEventListener("change", e => {
+            e.target.removeAttribute("class");
+        });
+    });
+</script>
+
+<script>
+    function flagSubmit() {
+        let id = $("#task-id").val();
+        let flag = $("#flag-input").val();
+        $.ajax({
+            type: "post",
+            url: "/practice/submit/" + flag + "/" + id,
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                if (res === 'fail') {
+                    $("#correct-alert").attr("hidden", true);
+                    $("#wrong-alert").removeAttr("hidden");
+                } else {
+                    $("#wrong-alert").attr("hidden", true);
+                    $("#correct-alert").removeAttr("hidden");
+                }
+            }
+        });
+    }
+</script>

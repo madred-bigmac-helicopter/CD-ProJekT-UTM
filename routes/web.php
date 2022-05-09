@@ -20,7 +20,7 @@ require __DIR__ . '/auth.php';
 
 Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     Route::get('/dashboard', function () {
-        return view('admin.layouts.dashboard');
+        return redirect('/admin/task');
     })->name('admin');
 
     Route::post('/users', [UserController::class, 'index'])->name('users.table');
@@ -62,7 +62,9 @@ Route::group(
     });
     Route::get('/practice',[\App\Http\Controllers\TaskController::class, 'index'])->name('task-index');
     Route::post('/practice/group',[\App\Http\Controllers\TaskController::class, 'group'])->name('task-group');
-
+    Route::post('/practice/modal/{id}',[\App\Http\Controllers\TaskController::class, 'modal'])->name('task-modal');
+    Route::post('/practice/submit/{flag}/{id}',[\App\Http\Controllers\TaskController::class, 'submit'])->name('task-modal');
+//    Route::get('/practice/task',[\App\Http\Controllers\TaskController::class,'show'])->name('task-show');
 //    Route::post('/table',[UserController::class, 'index']);
 //    Route::get ( '/test1', function () {
 //        $data = \App\Models\User::all ();

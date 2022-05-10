@@ -2,26 +2,34 @@
 
 @section('content')
     {!! Form::open(['action' => ['App\Http\Controllers\Admin\TaskController@store'],
-'class' => 'form', 'style' => 'background-color: #fff']) !!}
+'class' => 'form', 'style' => 'background-color: #fff; margin-left:150px; margin-top:100px', "enctype" => "multipart/form-data"]) !!}
     {{--    <form class="form" style="background-color: #fff" action="{{route('task.store')}}" method="post">--}}
     <div class="card-body">
         <div class="form-group row">
             <div class="col-lg-6">
                 <label>Name
-                    <span class="text-danger">*</span></label>
-                <input name="name" type="text" class="form-control" placeholder="Enter task name" required/>
+{{--                    <span class="text-danger">*</span>--}}
+                </label>
+                <input name="name" type="text" class="form-control @if ($errors->has('name')) is-invalid @endif" placeholder="Enter task name" required/>
                 <span class="form-text text-muted">Please enter task name</span>
+                @if ($errors->has('name'))
+                    <div class="invalid-feedback">
+                        {{ $errors->getBag('default')->first('name') }}
+                    </div>
+                @endif
             </div>
             <div class="col-lg-6">
                 <label for="Textarea">Description
-                    <span class="text-danger">*</span></label>
+{{--                    <span class="text-danger">*</span>--}}
+                </label>
                 <textarea name="description" class="form-control" id="Textarea" rows="3"></textarea>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-lg-6">
                 <label>Flag
-                    <span class="text-danger">*</span></label>
+{{--                    <span class="text-danger">*</span>--}}
+                </label>
                 <div class="input-group">
                     <input name="flag" type="text" class="form-control" placeholder="Enter your flag" required/>
                 </div>
@@ -40,7 +48,8 @@
 
             <div class="col-lg-6">
                 <label for="Select1">Difficulty
-                    <span class="text-danger">*</span></label>
+{{--                    <span class="text-danger">*</span>--}}
+                </label>
                 <select class="form-control" id="Select1" name = "difficulty">
                     <option value="0">Easy</option>
                     <option value="1">Medium</option>
@@ -49,7 +58,8 @@
             </div>
             <div class="col-lg-6">
                 <label for="Select">Category
-                    <span class="text-danger">*</span></label>
+{{--                    <span class="text-danger">*</span>--}}
+                </label>
                 <select class="form-control" id="Select" name="category">
                     <option value="0">Web Exploitation</option>
                     <option value="1">Cryptography</option>
@@ -64,7 +74,8 @@
         <div class="form-group row">
             <div class="col-lg-6">
                 <label>Point
-                    <span class="text-danger">*</span></label>
+{{--                    <span class="text-danger">*</span>--}}
+                </label>
                 <div class="input-group">
 
                     <input name="points" type="number" class="form-control" placeholder="Enter your task's point" required/>
@@ -74,13 +85,21 @@
             </div>
             <div class="col-lg-6">
                 <label>Hint cost
-                    <span class="text-danger">*</span></label>
+{{--                    <span class="text-danger">*</span>--}}
+                </label>
                 <div class="input-group">
 
                     <input name="hint_cost" type="number" class="form-control" placeholder="Enter your hint's cost"/>
 
                 </div>
                 <span class="form-text text-muted">Please enter hint's cost</span>
+            </div>
+            <div class="form-group">
+                <label>File</label>
+                <div class="custom-file">
+                    <input name="file" type="file" class="custom-file-input" id="customFile"/>
+                    <label class="custom-file-label selected" for="customFile"></label>
+                </div>
             </div>
         </div>
 

@@ -163,6 +163,7 @@
                             <div class="modal-body"
                                  style="color: white; font-family: Consolas;display:flex;flex-direction: column">
                                 <span id="modal-description"></span>
+                                <a id="download-route">Download data</a>
                                 <label
                                     style="display: flex;flex-direction: column; align-items: start; margin-top: 20px">
                                     <span>Flag</span>
@@ -190,6 +191,7 @@
         let exampleModalLongTitle = $("#exampleModalLongTitle");
         let modal_description = $("#modal-description");
         let task_id = $("#task-id");
+        let route = $("#download-route");
         $.ajax({
             type: "post",
             url: "/practice/modal/" + id,
@@ -204,6 +206,13 @@
                 exampleModalLongTitle.append(res["name"])
                 modal_description.append(res["description"])
                 task_id.val(res["id"]);
+                if (res["file"] == null) {
+                    route.attr("hidden", true)
+                } else {
+                    let routeName = "/practice/file/" + res['file'];
+                    route.attr("hidden", false)
+                    route.attr("href", routeName);
+                }
             }
         });
     }
@@ -249,22 +258,28 @@
     function flagSubmit() {
         let id = $("#task-id").val();
         let flag = $("#flag-input").val();
-        $.ajax({
-            type: "post",
-            url: "/practice/submit/" + flag + "/" + id,
-            contentType: 'application/json',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (res) {
-                if (res === 'fail') {
-                    $("#correct-alert").attr("hidden", true);
-                    $("#wrong-alert").removeAttr("hidden");
-                } else {
-                    $("#wrong-alert").attr("hidden", true);
-                    $("#correct-alert").removeAttr("hidden");
+        if (!flag == '') {
+            $.ajax({
+                type: "post",
+                url: "/practice/submit/" + flag + "/" + id,
+                contentType: 'application/json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (res) {
+                    if (res === 'fail') {
+                        $("#correct-alert").attr("hidden", true);
+                        $("#wrong-alert").removeAttr("hidden");
+                    } else {
+                        $("#wrong-alert").attr("hidden", true);
+                        $("#correct-alert").removeAttr("hidden");
+                    }
                 }
-            }
-        });
+            });
+        }
+        else {
+            $("#correct-alert").attr("hidden", true);
+            $("#wrong-alert").attr("hidden", true);
+        }
     }
 </script>

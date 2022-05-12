@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
@@ -16,7 +18,7 @@ class TaskController extends Controller
             $tasks = [];
             foreach ($request['category'] as $item) {
                 $tasks [] = Task::where('category', $item)->get();
-            };
+            }
             foreach ($tasks as $item) {
                 if (count($item) > 0)
                     foreach ($item as $aux) {
@@ -40,9 +42,7 @@ class TaskController extends Controller
 
     public function modal($id)
     {
-        $item = Task::find($id);
-
-        return $item;
+        return Task::find($id);
     }
 
     public function submit($flag, $id)
@@ -53,5 +53,14 @@ class TaskController extends Controller
         } else {
             return "fail";
         }
+    }
+
+    public function downloadFiles($file)
+    {
+        $result = File::exists(storage_path('files/') . $file);
+        if ($result) {
+            return Storage::disk('files')->download($file);
+        }
+        return view("errors.404");
     }
 }

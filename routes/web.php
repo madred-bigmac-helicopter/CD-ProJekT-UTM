@@ -62,6 +62,7 @@ Route::group(
     });
     Route::get('/practice',[\App\Http\Controllers\TaskController::class, 'index'])->name('task-index');
     Route::post('/practice/group',[\App\Http\Controllers\TaskController::class, 'group'])->name('task-group');
+    Route::post('/practice/hint/{id}',[\App\Http\Controllers\TaskController::class, 'hint'])->name('task-hint');
     Route::post('/practice/modal/{id}',[\App\Http\Controllers\TaskController::class, 'modal'])->name('task-modal');
     Route::post('/practice/submit/{flag}/{id}',[\App\Http\Controllers\TaskController::class, 'submit'])->name('task-modal');
     Route::get('/practice/file/{file}',[\App\Http\Controllers\TaskController::class, 'downloadFiles'])->name('task-file-download');

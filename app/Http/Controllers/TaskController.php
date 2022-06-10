@@ -11,6 +11,23 @@ use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
+    public function hint($id)
+    {
+        $task = Task::find($id);
+        $user = User::find(Auth::user()->id);
+        if (($user->points - $task->hint_cost) > 0) {
+//            dd(Auth::user()->id,($user->points - $task->hint_cost));
+
+            User::where('id',Auth::user()->id)->update([
+                'points' => ($user->points - $task->hint_cost)
+            ]);
+            return $task->hint;
+        } else {
+            return '<p style="color: red">You have not enough points for use hint </p>';
+        }
+
+    }
+
     public function group(Request $request)
     {
         $task = null;

@@ -97,7 +97,8 @@
                 @foreach($task as $item)
                     {{--                @if(count($item)>0)--}}
                     <a type="button" class="" style="color: transparent;" data-toggle="modal"
-                       data-target="#exampleModalCenter" onclick="modal({{$item->id}})">
+                       data-target="#exampleModalCenter" onclick="modal({{$item->id}})" id="modal_id"
+                       modal_id="{{$item->id}}">
                         <div class="card">
                             <div class="face face1">
                                 <div class="content" style="display: flex;flex-direction: column;align-items: center;">
@@ -170,27 +171,29 @@
                             <div class="modal-body"
                                  style="color: white; font-family: Consolas;display:flex;flex-direction: column">
                                 <span id="modal-description"></span>
+                                <input hidden id="selected_modal_id">
                                 <a id="download-route">Download data</a>
-                                <div
-                                    style="display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
-                                    <label
-                                        style="display: flex;flex-direction: column; align-items: start; margin-top: 20px">
-                                        <span>Flag</span>
-                                        <input style="margin-top: 7px; color: black" type="text" id="flag-input"/>
-                                    </label>
 
-                                    <div id="hint" data-value="" hidden>
+                                <label
+                                    style="display: flex;flex-direction: column; align-items: start; margin-top: 20px">
+                                    <span>Flag</span>
+                                    <input style="margin-top: 7px; color: black" type="text" id="flag-input"/>
+                                </label>
 
-{{--                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"--}}
-{{--                                             fill="currentColor" class="bi bi-question-square-fill" viewBox="0 0 16 16">--}}
-{{--                                            <path--}}
-{{--                                                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.496 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25h-.825zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z"/>--}}
-{{--                                        </svg>--}}
-
-                                    </div>
-
+                                <div id="hint" data-value=""  style="display: flex;justify-content: flex-end;">
+{{--                                    <button type="button" hidden class="btn btn-success" id="hint_cost_button"></button>--}}
                                 </div>
+
+
+                                {{--                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"--}}
+                                {{--                                             fill="currentColor" class="bi bi-question-square-fill" viewBox="0 0 16 16">--}}
+                                {{--                                            <path--}}
+                                {{--                                                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.496 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25h-.825zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z"/>--}}
+                                {{--                                        </svg>--}}
+
+
                             </div>
+
                             <input hidden type="text" value="" id="task-id">
                             <div class="modal-footer" style="border: black solid 1px">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -213,7 +216,11 @@
         let modal_description = $("#modal-description");
         let task_id = $("#task-id");
         let route = $("#download-route");
-        let hint = $('#hint');
+        let selected_modal_id = $("#selected_modal_id");
+        selected_modal_id.val(null)
+        // let hint = $('#hint');
+        let hintB = $('#hint_cost_button');
+
         $.ajax({
             type: "post",
             url: "/practice/modal/" + id,
@@ -225,14 +232,19 @@
                 exampleModalLongTitle.empty();
                 modal_description.empty();
                 task_id.empty();
+                selected_modal_id.val(res["id"])
                 exampleModalLongTitle.append(res["name"])
                 modal_description.append(res["description"])
-                console.log(res['hint']);
+
+
                 if (res['hint'] !== null) {
-                    hint.removeAttr('hidden')
-                    hint.append("Hint cost " + res["hint_cost"] );
-                    hint.attr('data-value',(res["hint"]));
-                    hint.attr('cost',(res["hint_cost"]));
+                    // hint.removeAttr('hidden')
+                    $('#hint').empty();
+                    $('#hint').append('<button type="button" hidden class="btn btn-success" onclick="getHint()" id="hint_cost_button"></button>')
+                    hintB.removeAttr('hidden')
+                    $('#hint_cost_button').append("Hint cost " + res["hint_cost"]);
+                    // hint.attr('data-value', (res["hint"]));
+                    // hint.attr('cost', (res["hint_cost"]));
                 }
                 task_id.val(res["id"]);
                 if (res["file"] == null) {
@@ -246,10 +258,28 @@
         });
     }
 
-    $('#hint').on('click', function (){
-        $(this).empty();
-        $(this).append($(this).attr('data-value'));
-    })
+     function getHint () {
+        let hint = $('#hint');
+        console.log('asdasd')
+        // console.log(hint)
+        hint.empty();
+        let id = $("#selected_modal_id").val();
+
+        $.ajax({
+            type: "post",
+            url: "/practice/hint/" + id,
+            contentType: 'application/json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (res) {
+                console.log(res)
+                hint.append(res)
+                // hint.attr('id', '')
+            }
+        });
+        // $(this).append($(this).attr('data-value'));
+    }
 </script>
 
 <script>
@@ -309,9 +339,9 @@
                     } else {
                         $("#wrong-alert").attr("hidden", true);
                         $("#correct-alert").removeAttr("hidden");
-                        // setTimeout(() => {
-                        //     location.reload();
-                        // }, 1500)
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1500)
                     }
                 }
             });

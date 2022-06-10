@@ -16,26 +16,26 @@
     <div>
         <div class="card ">
             <div class="card-header"><h3 class="card-title">Filters</h3></div>
-            {{--            <div class="card-body">--}}
-            {{--                <form class=""><label for="name-search" class="">Search by Name</label>--}}
-            {{--                    <div class="input-group"><input id="name-search" aria-label="Challenge name search" type="text"--}}
-            {{--                                                    class="form-control" value="">--}}
-            {{--                        <div class="input-group-append"><span class="input-group-text"><svg aria-hidden="true"--}}
-            {{--                                                                                            focusable="false"--}}
-            {{--                                                                                            data-prefix="fas"--}}
-            {{--                                                                                            data-icon="magnifying-glass"--}}
-            {{--                                                                                            class="svg-inline--fa fa-magnifying-glass "--}}
-            {{--                                                                                            role="img"--}}
-            {{--                                                                                            xmlns="http://www.w3.org/2000/svg"--}}
-            {{--                                                                                            viewBox="0 0 512 512"--}}
-            {{--                                                                                            color="black"><path--}}
-            {{--                                        fill="currentColor"--}}
-            {{--                                        d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"></path></svg></span>--}}
+            {{--                        <div class="card-body">--}}
+            {{--                            <form class=""><label for="name-search" class="">Search by Name</label>--}}
+            {{--                                <div class="input-group"><input id="name-search" aria-label="Challenge name search" type="text"--}}
+            {{--                                                                class="form-control" value="">--}}
+            {{--                                    <div class="input-group-append"><span class="input-group-text"><svg aria-hidden="true"--}}
+            {{--                                                                                                        focusable="false"--}}
+            {{--                                                                                                        data-prefix="fas"--}}
+            {{--                                                                                                        data-icon="magnifying-glass"--}}
+            {{--                                                                                                        class="svg-inline--fa fa-magnifying-glass "--}}
+            {{--                                                                                                        role="img"--}}
+            {{--                                                                                                        xmlns="http://www.w3.org/2000/svg"--}}
+            {{--                                                                                                        viewBox="0 0 512 512"--}}
+            {{--                                                                                                        color="black"><path--}}
+            {{--                                                    fill="currentColor"--}}
+            {{--                                                    d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z"></path></svg></span>--}}
+            {{--                                    </div>--}}
+            {{--                                </div>--}}
+            {{--                            </form>--}}
             {{--                        </div>--}}
-            {{--                    </div>--}}
-            {{--                </form>--}}
-            {{--            </div>--}}
-            {{--            <div class="card-header"><h4 class="card-title">Category Filter</h4></div>--}}
+            {{--                        <div class="card-header"><h4 class="card-title">Category Filter</h4></div>--}}
             <div class="card-body">
                 <ul class="filter-list list-group">
 
@@ -103,6 +103,10 @@
                                 <div class="content" style="display: flex;flex-direction: column;align-items: center;">
                                     <img
                                         src="{{asset('png-transparent-encryption-cryptography-computer-icons-computer-network-key-computer-network-text-objects-removebg-preview.png')}}">
+                                    @if($user->tasks()->where('id',$item['id'])->exists())
+                                        <p style="color: #00d200; font-size: 15px">Done</p>
+
+                                    @endif
                                     @if($item->category == 0)
                                         <h3 class="body-md mt-1 card-title">Web Exploitation</h3>
                                     @endif
@@ -124,10 +128,8 @@
                                     @if($item->category == 6)
                                         <h3 class="body-md mt-1 card-title">Uncategorized</h3>
                                     @endif
-
                                 </div>
                             </div>
-
 
                             <div class="face face2" style="tab-index: 1000">
                                 <div class="content">
@@ -157,18 +159,37 @@
                                     style="color: white;font-family: Consolas; margin-top: 15px">
                                 </h4>
                                 <span style="color: red; font-size: 25px" hidden id="wrong-alert">Wrong Flag</span>
-                                <span style="color: green; font-size: 25px" hidden
-                                      id="correct-alert">Correct Flag</span>
+                                @if($user->tasks()->where('id',$item['id'])->exists())
+                                    <span style="color: green; font-size: 25px" hidden
+                                          id="correct-alert">Correct Flag</span>
+                                @else
+                                    <span style="color: green; font-size: 25px" hidden
+                                          id="correct-alert">Correct Flag</span>
+                                @endif
                             </div>
                             <div class="modal-body"
                                  style="color: white; font-family: Consolas;display:flex;flex-direction: column">
                                 <span id="modal-description"></span>
                                 <a id="download-route">Download data</a>
-                                <label
-                                    style="display: flex;flex-direction: column; align-items: start; margin-top: 20px">
-                                    <span>Flag</span>
-                                    <input style="margin-top: 7px; color: black" type="text" id="flag-input"/>
-                                </label>
+                                <div
+                                    style="display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
+                                    <label
+                                        style="display: flex;flex-direction: column; align-items: start; margin-top: 20px">
+                                        <span>Flag</span>
+                                        <input style="margin-top: 7px; color: black" type="text" id="flag-input"/>
+                                    </label>
+
+                                    <div id="hint" data-value="" hidden>
+
+{{--                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"--}}
+{{--                                             fill="currentColor" class="bi bi-question-square-fill" viewBox="0 0 16 16">--}}
+{{--                                            <path--}}
+{{--                                                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.496 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25h-.825zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z"/>--}}
+{{--                                        </svg>--}}
+
+                                    </div>
+
+                                </div>
                             </div>
                             <input hidden type="text" value="" id="task-id">
                             <div class="modal-footer" style="border: black solid 1px">
@@ -192,6 +213,7 @@
         let modal_description = $("#modal-description");
         let task_id = $("#task-id");
         let route = $("#download-route");
+        let hint = $('#hint');
         $.ajax({
             type: "post",
             url: "/practice/modal/" + id,
@@ -205,6 +227,13 @@
                 task_id.empty();
                 exampleModalLongTitle.append(res["name"])
                 modal_description.append(res["description"])
+                console.log(res['hint']);
+                if (res['hint'] !== null) {
+                    hint.removeAttr('hidden')
+                    hint.append("Hint cost " + res["hint_cost"] );
+                    hint.attr('data-value',(res["hint"]));
+                    hint.attr('cost',(res["hint_cost"]));
+                }
                 task_id.val(res["id"]);
                 if (res["file"] == null) {
                     route.attr("hidden", true)
@@ -216,6 +245,11 @@
             }
         });
     }
+
+    $('#hint').on('click', function (){
+        $(this).empty();
+        $(this).append($(this).attr('data-value'));
+    })
 </script>
 
 <script>
@@ -258,6 +292,8 @@
     function flagSubmit() {
         let id = $("#task-id").val();
         let flag = $("#flag-input").val();
+        $("#wrong-alert").attr("hidden", true);
+
         if (!flag == '') {
             $.ajax({
                 type: "post",
@@ -273,11 +309,13 @@
                     } else {
                         $("#wrong-alert").attr("hidden", true);
                         $("#correct-alert").removeAttr("hidden");
+                        // setTimeout(() => {
+                        //     location.reload();
+                        // }, 1500)
                     }
                 }
             });
-        }
-        else {
+        } else {
             $("#correct-alert").attr("hidden", true);
             $("#wrong-alert").attr("hidden", true);
         }

@@ -29,7 +29,7 @@ Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
     })->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
-    Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+    Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit')->name('user_edit');
     Route::post('/users/update/{id}', [UserController::class, 'update'])->name('users.update');
     Route::post('/users/delete/{id}', [UserController::class, 'destroy'])->name('users.delete');
 

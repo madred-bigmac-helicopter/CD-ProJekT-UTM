@@ -45,17 +45,8 @@ class User extends Authenticatable
     /**
      * Get the places associated with the user.
      */
-    public function places()
+    public function tasks()
     {
-        return $this->hasMany(Place::class);
-    }
-
-
-    /**
-     * Get the events associated with the user.
-     */
-    public function events()
-    {
-        return $this->hasMany(Event::class);
+        return $this->belongsToMany('App\Models\Task', 'users_has_tasks');
     }
 }

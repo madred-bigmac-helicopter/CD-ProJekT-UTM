@@ -16,7 +16,7 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $datatable = array_merge(['pagination' => [], 'sort' => [], 'query' => []], $request->all());
-        $datatable['pagination']['perpage'] = 15;
+        $datatable['pagination']['perpage'] = $request['pagination']['perpage'];
         $sort = !empty($datatable['sort']['sort']) ? $datatable['sort']['sort'] : 'asc';
         $field = !empty($datatable['sort']['field']) ? $datatable['sort']['field'] : 'id';
         $alldata = $data = Task::orderBy($field, $sort)->get()->toArray();

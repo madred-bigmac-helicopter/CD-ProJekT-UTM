@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,7 +29,10 @@ class TaskController extends Controller
             }
         }
 
-        return view('practice.cards-table')->with(compact('task'))->render();
+        $user = User::find(Auth::user()->id);
+
+
+        return view('practice.cards-table')->with(compact('task', 'user'))->render();
     }
 
     public function index()
@@ -48,7 +53,18 @@ class TaskController extends Controller
     public function submit($flag, $id)
     {
         $task = Task::find($id);
+
         if ($task->flag == $flag) {
+            $user = User::find(Auth::user()->id);
+
+            if (!$user->tasks()->where('id', $task->id)->exists()) {
+                $user->tasks()->attach($id);
+                $points = $user->points + $task->points;
+                User::where('id', Auth::user()->id)->update([
+                    'points' => $points,
+                ]);
+            }
+
             return "success";
         } else {
             return "fail";

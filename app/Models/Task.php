@@ -20,4 +20,9 @@ class Task extends Model
     public $generalSkills = 4;
     public $binaryExploitation = 5;
     public $uncategorized = 6;
+
+    public function user()
+    {
+        return $this->belongsToMany('App\Models\User', 'users_has_tasks');
+    }
 }

@@ -58,8 +58,6 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect']
     ], function () {
     Route::get('/', function () {
-        dd(\App\Models\User::all());
-
         return view('about.about');
     });
     Route::get('/practice',[\App\Http\Controllers\TaskController::class, 'index'])->name('task-index');

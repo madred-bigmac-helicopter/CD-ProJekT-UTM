@@ -123,10 +123,12 @@ class TaskController extends Controller
         $data = $request->except('_token', "file");
 
         $file = $request->file('file');
-        $fileName = md5(time()) . "_" . $file->getClientOriginalName();
+        if (isset($file)){
+            $fileName = md5(time()) . "_" . $file->getClientOriginalName();
+
         $file->move(storage_path("files"), $fileName);
         $data["file"] = $fileName;
-
+    }
         Task::create($data);
 
         return redirect(route('task.index'))->with('success', 'Task is created successfully');
